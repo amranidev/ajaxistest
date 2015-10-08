@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
+//use Illuminate\Http\Request;
+//use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Amranidev\Ajaxis\Ajaxis;
+use App\Contact;
+use URL;
+use Request;
 class ContactBtController extends Controller
 {
     /**
@@ -15,7 +18,8 @@ class ContactBtController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::all();
+        return view('ContactBootstrap',compact('contacts'));
     }
 
     /**
@@ -58,7 +62,19 @@ class ContactBtController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::FindOrFail($id);
+        $api = '/ContactBt/'.$id.'/update/';
+        $Ajaxis = Ajaxis::BtEditFormModal([
+        ['type' => 'text' , 'value' => $contact->firstname, 'name' => 'firstname' , 'key' => 'First Name :'],
+        ['type' => 'text' , 'value' => $contact->lastname, 'name' => 'lastname' , 'key' => 'Last Name :'],
+        ['type' => 'date' , 'value' => $contact->date, 'name' => 'date' , 'key' => 'Date :'],
+        ['type' => 'text' , 'value' => $contact->phone, 'name' => 'phone' , 'key' => 'Phone :']
+        ],$api);
+
+        if(Request::ajax()){
+            return $Ajaxis;
+        }
+
     }
 
     /**
@@ -70,7 +86,16 @@ class ContactBtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Request::except('_token');
+        $contact = Contact::FindOrFail($id);
+        $contact->firstname = $input['firstname'];
+        $contact->lastname = $input['lastname'];
+        $contact->date = $input['date'];
+        $contact->phone = $input['phone'];
+        $contact->save();
+
+        return URL::To('ContactBt');
+
     }
 
     /**

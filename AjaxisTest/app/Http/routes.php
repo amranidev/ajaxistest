@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('ContactBt','ContactBtController@index');
+Route::get('ContactBt/{id}/edit','ContactBtController@edit');
+Route::post('ContactBt/{id}/update','ContactBtController@update');
 Route::get('/', function () {
     return view('welcome');
 });
