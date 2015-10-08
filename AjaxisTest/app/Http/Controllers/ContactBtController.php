@@ -70,8 +70,21 @@ class ContactBtController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        $contact = Contact::FindOrFail($id);
+        $Ajaxis = Ajaxis::BtDisplay([
+            ['key' => 'FirstName','value' => $contact->firstname],
+            ['key' => 'LastName','value' => $contact->lastname],
+            ['key' => 'Date','value' => $contact->date],
+            ['key' => 'Phone','value' => $contact->phone],
+            ['key' => 'info','value' => $string]
+            ]);
+
+        if(Request::ajax()){
+            return $Ajaxis;
+        }
+
+    } 
 
     /**
      * Show the form for editing the specified resource.
