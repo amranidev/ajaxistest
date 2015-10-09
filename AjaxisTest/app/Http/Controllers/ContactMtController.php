@@ -91,7 +91,18 @@ class ContactMtController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::FindOrFail($id);
+        $api = '/ContactMt/'.$id.'/update/';
+        $Ajaxis = Ajaxis::MtEditFormModal([
+        ['type' => 'text' , 'value' => $contact->firstname, 'name' => 'firstname' , 'key' => 'First Name :'],
+        ['type' => 'text' , 'value' => $contact->lastname, 'name' => 'lastname' , 'key' => 'Last Name :'],
+        ['type' => 'date' , 'value' => $contact->date, 'name' => 'date' , 'key' => 'Date :'],
+        ['type' => 'text' , 'value' => $contact->phone, 'name' => 'phone' , 'key' => 'Phone :']
+        ],$api);
+
+        if(Request::ajax()){
+            return $Ajaxis;
+        }
     }
 
     /**
@@ -103,7 +114,15 @@ class ContactMtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Request::except('_token');
+        $contact = Contact::FindOrFail($id);
+        $contact->firstname = $input['firstname'];
+        $contact->lastname = $input['lastname'];
+        $contact->date = $input['date'];
+        $contact->phone = $input['phone'];
+        $contact->save();
+
+        return URL::To('ContactMt');
     }
 
     /**
@@ -116,4 +135,5 @@ class ContactMtController extends Controller
     {
         //
     }
+
 }
