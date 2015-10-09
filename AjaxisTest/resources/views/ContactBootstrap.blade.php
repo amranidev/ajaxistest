@@ -1,5 +1,5 @@
 @extends('layouts.MasterBt')
-@section('title','Contact')
+@section('title','Contact Bootstrap')
 @section('content')
 <button data-toggle="modal" data-target="#myModal" class = 'create btn btn-primary' data-link = '/ContactBt/create/'><i class = 'material-icons'>add</i></button>
 <table class = 'table table-hover'>

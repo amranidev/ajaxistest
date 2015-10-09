@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use Amranidev\Ajaxis\ajaxis;
+use App\Contact;
+use Request;
 class ContactMtController extends Controller
 {
     /**
@@ -15,7 +16,8 @@ class ContactMtController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::all();
+        return view('ContactMaterialize',compact('contacts'));
     }
 
     /**
