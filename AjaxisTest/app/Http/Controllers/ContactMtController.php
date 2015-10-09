@@ -133,7 +133,24 @@ class ContactMtController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::FindOrFail($id);
+        $contact->delete();
+        return URL::to('ContactMt');
     }
-
+ 
+    /**
+     * Deleting confirmation message
+     * 
+     * @param int $id
+     * @return \Amranidev\Ajaxis\Ajaxis
+     */     
+    public function delete($id){
+      
+    $api = '/ContactMt/'.$id.'/destroy';
+    $Ajaxis = Ajaxis::MtDeleting('Delete','Are you sure to delete this contact ?',$api);      
+      
+      if(Request::ajax()){
+        return $Ajaxis;
+      }  
+    }
 }

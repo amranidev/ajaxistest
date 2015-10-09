@@ -43,5 +43,5 @@ Route::get('ContactMt/{id}/destroy','ContactMtController@destroy');
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
