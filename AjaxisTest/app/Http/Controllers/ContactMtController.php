@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use Amranidev\Ajaxis\ajaxis;
+use Amranidev\Ajaxis\Ajaxis;
 use App\Contact;
 use Request;
+use URL;
 class ContactMtController extends Controller
 {
     /**
@@ -27,7 +28,17 @@ class ContactMtController extends Controller
      */
     public function create()
     {
-        //
+        $api = '/ContactMt/store/';
+        $Ajaxis = Ajaxis::MtCreateFormModal([
+        ['type' => 'text' , 'value' => '', 'name' => 'firstname' , 'key' => 'First Name :'],
+        ['type' => 'text' , 'value' => '', 'name' => 'lastname' , 'key' => 'Last Name :'],
+        ['type' => 'date' , 'value' => '', 'name' => 'date' , 'key' => 'Date :'],
+        ['type' => 'text' , 'value' => '', 'name' => 'phone' , 'key' => 'Phone :']
+        ],$api);
+
+        if(Request::ajax()){
+            return $Ajaxis;
+        }
     }
 
     /**
@@ -38,7 +49,15 @@ class ContactMtController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Request::except('_token');
+        $contact = new Contact();
+        $contact->firstname = $input['firstname'];
+        $contact->lastname = $input['lastname'];
+        $contact->date = $input['date'];
+        $contact->phone = $input['phone'];
+        $contact->save();
+
+        return URL::To('ContactMt');
     }
 
     /**

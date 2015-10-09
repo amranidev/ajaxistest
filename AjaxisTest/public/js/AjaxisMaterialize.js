@@ -72,7 +72,8 @@ function GET(dataLink) {
             $('select').material_select();
             $('.datepicker').pickadate({
                 selectMonths: true,
-                selectYears: 15
+                selectYears: 15,
+                format: 'yyyy-mm-dd'
             });
         }
     })

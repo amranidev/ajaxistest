@@ -33,13 +33,13 @@ Route::get('ContactBt/{id}/destroy','ContactBtController@destroy');
  |
 */
 Route::get('ContactMt','ContactMtController@index');
-Route::get('ContactMt/{id}/edit','ContactBtController@edit');
-Route::post('ContactMt/{id}/update','ContactBtController@update');
-Route::get('ContactMt/create','ContactBtController@create');
-Route::post('ContactMt/store','ContactBtController@store');
-Route::get('ContactMt/{id}/show','ContactBtController@show');
-Route::get('ContactMt/{id}/delete','ContactBtController@delete');
-Route::get('ContactMt/{id}/destroy','ContactBtController@destroy');
+Route::get('ContactMt/{id}/edit','ContactMtController@edit');
+Route::post('ContactMt/{id}/update','ContactMtController@update');
+Route::get('ContactMt/create','ContactMtController@create');
+Route::post('ContactMt/store','ContactMtController@store');
+Route::get('ContactMt/{id}/show','ContactMtController@show');
+Route::get('ContactMt/{id}/delete','ContactMtController@delete');
+Route::get('ContactMt/{id}/destroy','ContactMtController@destroy');
 
 
 Route::get('/', function () {
