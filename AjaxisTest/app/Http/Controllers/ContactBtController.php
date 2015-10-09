@@ -138,6 +138,24 @@ class ContactBtController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::FindOrFail($id);
+        $contact->delete();
+        return URL::to('ContactBt');
+    }
+    
+    /**
+     * Deleting confirmation message
+     * 
+     * @param int $id
+     * @return use Amranidev\Ajaxis\Ajaxis
+     */ 
+    public function delete($id){
+      
+      $api = '/ContactBt/'.$id.'/destroy';
+      $Ajaxis = Ajaxis::BtDeleting('Delete','Are you sure to delete this contact ?',$api);      
+      
+      if(Request::ajax()){
+        return $Ajaxis;
+      }  
     }
 }
