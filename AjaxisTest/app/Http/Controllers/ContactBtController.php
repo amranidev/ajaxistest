@@ -123,7 +123,7 @@ class ContactBtController extends Controller
         $contact->date = $input['date'];
         $contact->phone = $input['phone'];
         $contact->save();
-
+         //Reload page 
         return URL::To('ContactBt');
 
     }
@@ -142,7 +142,7 @@ class ContactBtController extends Controller
     }
     
     /**
-     * Deleting confirmation message
+     * Generate Deleting confirmation message
      * 
      * @param int $id
      * @return use Amranidev\Ajaxis\Ajaxis
