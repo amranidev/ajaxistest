@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Controllers\Controller;
 use Amranidev\Ajaxis\Ajaxis;
 use App\Contact;
+use App\Http\Controllers\Controller;
 use Request;
 use URL;
+
 class ContactMtController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class ContactMtController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('ContactMaterialize',compact('contacts'));
+        return view('ContactMaterialize', compact('contacts'));
     }
 
     /**
@@ -28,15 +28,15 @@ class ContactMtController extends Controller
      */
     public function create()
     {
-        $api = '/ContactMt/store/';
+        $api = '/ContactMt/store';
         $Ajaxis = Ajaxis::MtCreateFormModal([
-        ['type' => 'text' , 'value' => '', 'name' => 'firstname' , 'key' => 'First Name :'],
-        ['type' => 'text' , 'value' => '', 'name' => 'lastname' , 'key' => 'Last Name :'],
-        ['type' => 'date' , 'value' => '', 'name' => 'date' , 'key' => 'Date :'],
-        ['type' => 'text' , 'value' => '', 'name' => 'phone' , 'key' => 'Phone :']
-        ],$api);
+            ['type' => 'text', 'value' => '', 'name' => 'firstname', 'key' => 'First Name :'],
+            ['type' => 'text', 'value' => '', 'name' => 'lastname', 'key' => 'Last Name :'],
+            ['type' => 'date', 'value' => '', 'name' => 'date', 'key' => 'Date :'],
+            ['type' => 'text', 'value' => '', 'name' => 'phone', 'key' => 'Phone :'],
+        ], $api);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
     }
@@ -71,14 +71,14 @@ class ContactMtController extends Controller
         $string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         $contact = Contact::FindOrFail($id);
         $Ajaxis = Ajaxis::MtDisplay([
-            ['key' => 'FirstName','value' => $contact->firstname],
-            ['key' => 'LastName','value' => $contact->lastname],
-            ['key' => 'Date','value' => $contact->date],
-            ['key' => 'Phone','value' => $contact->phone],
-            ['key' => 'info','value' => $string]
-            ]);
+            ['key' => 'FirstName', 'value' => $contact->firstname],
+            ['key' => 'LastName', 'value' => $contact->lastname],
+            ['key' => 'Date', 'value' => $contact->date],
+            ['key' => 'Phone', 'value' => $contact->phone],
+            ['key' => 'info', 'value' => $string],
+        ]);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
     }
@@ -92,15 +92,15 @@ class ContactMtController extends Controller
     public function edit($id)
     {
         $contact = Contact::FindOrFail($id);
-        $api = '/ContactMt/'.$id.'/update/';
+        $api = '/ContactMt/' . $id . '/update';
         $Ajaxis = Ajaxis::MtEditFormModal([
-        ['type' => 'text' , 'value' => $contact->firstname, 'name' => 'firstname' , 'key' => 'First Name :'],
-        ['type' => 'text' , 'value' => $contact->lastname, 'name' => 'lastname' , 'key' => 'Last Name :'],
-        ['type' => 'date' , 'value' => $contact->date, 'name' => 'date' , 'key' => 'Date :'],
-        ['type' => 'text' , 'value' => $contact->phone, 'name' => 'phone' , 'key' => 'Phone :']
-        ],$api);
+            ['type' => 'text', 'value' => $contact->firstname, 'name' => 'firstname', 'key' => 'First Name :'],
+            ['type' => 'text', 'value' => $contact->lastname, 'name' => 'lastname', 'key' => 'Last Name :'],
+            ['type' => 'date', 'value' => $contact->date, 'name' => 'date', 'key' => 'Date :'],
+            ['type' => 'text', 'value' => $contact->phone, 'name' => 'phone', 'key' => 'Phone :'],
+        ], $api);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
     }
@@ -137,20 +137,21 @@ class ContactMtController extends Controller
         $contact->delete();
         return URL::to('ContactMt');
     }
- 
+
     /**
      * Deleting confirmation message
-     * 
+     *
      * @param int $id
      * @return \Amranidev\Ajaxis\Ajaxis
-     */     
-    public function delete($id){
-      
-    $api = '/ContactMt/'.$id.'/destroy';
-    $Ajaxis = Ajaxis::MtDeleting('Delete','Are you sure to delete this contact ?',$api);      
-      
-      if(Request::ajax()){
-        return $Ajaxis;
-      }  
+     */
+    public function delete($id)
+    {
+
+        $api = '/ContactMt/' . $id . '/destroy';
+        $Ajaxis = Ajaxis::MtDeleting('Delete', 'Are you sure to delete this contact ?', $api);
+
+        if (Request::ajax()) {
+            return $Ajaxis;
+        }
     }
 }
