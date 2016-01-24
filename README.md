@@ -13,6 +13,6 @@ git clone https://github.com/amranidev/ajaxistest
 your remarks and advices are important for me 
 plz contact me : amranidev@gmail.com
 
-#Ajaxis Package here
+#Ajaxis Package
 
 visit : [Ajaxis](https://github.com/amranidev/ajaxis)
