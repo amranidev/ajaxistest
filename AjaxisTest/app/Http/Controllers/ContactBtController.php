@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Amranidev\Ajaxis\Ajaxis;
 use App\Contact;
-use URL;
+use App\Http\Controllers\Controller;
 use Request;
+use URL;
+
 class ContactBtController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class ContactBtController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('ContactBootstrap',compact('contacts'));
+        return view('ContactBootstrap', compact('contacts'));
     }
 
     /**
@@ -27,15 +28,15 @@ class ContactBtController extends Controller
      */
     public function create()
     {
-        $api = '/ContactBt/store/';
+        $api = '/ContactBt/store';
         $Ajaxis = Ajaxis::BtCreateFormModal([
-        ['type' => 'text' , 'value' => '', 'name' => 'firstname' , 'key' => 'First Name :'],
-        ['type' => 'text' , 'value' => '', 'name' => 'lastname' , 'key' => 'Last Name :'],
-        ['type' => 'date' , 'value' => '', 'name' => 'date' , 'key' => 'Date :'],
-        ['type' => 'text' , 'value' => '', 'name' => 'phone' , 'key' => 'Phone :']
-        ],$api);
+            ['type' => 'text', 'value' => '', 'name' => 'firstname', 'key' => 'First Name :'],
+            ['type' => 'text', 'value' => '', 'name' => 'lastname', 'key' => 'Last Name :'],
+            ['type' => 'date', 'value' => '', 'name' => 'date', 'key' => 'Date :'],
+            ['type' => 'text', 'value' => '', 'name' => 'phone', 'key' => 'Phone :'],
+        ], $api);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
     }
@@ -71,18 +72,18 @@ class ContactBtController extends Controller
         $string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         $contact = Contact::FindOrFail($id);
         $Ajaxis = Ajaxis::BtDisplay([
-            ['key' => 'FirstName','value' => $contact->firstname],
-            ['key' => 'LastName','value' => $contact->lastname],
-            ['key' => 'Date','value' => $contact->date],
-            ['key' => 'Phone','value' => $contact->phone],
-            ['key' => 'info','value' => $string]
-            ]);
+            ['key' => 'FirstName', 'value' => $contact->firstname],
+            ['key' => 'LastName', 'value' => $contact->lastname],
+            ['key' => 'Date', 'value' => $contact->date],
+            ['key' => 'Phone', 'value' => $contact->phone],
+            ['key' => 'info', 'value' => $string],
+        ]);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
 
-    } 
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,15 +94,15 @@ class ContactBtController extends Controller
     public function edit($id)
     {
         $contact = Contact::FindOrFail($id);
-        $api = '/ContactBt/'.$id.'/update/';
+        $api = '/ContactBt/' . $id . '/update';
         $Ajaxis = Ajaxis::BtEditFormModal([
-        ['type' => 'text' , 'value' => $contact->firstname, 'name' => 'firstname' , 'key' => 'First Name :'],
-        ['type' => 'text' , 'value' => $contact->lastname, 'name' => 'lastname' , 'key' => 'Last Name :'],
-        ['type' => 'date' , 'value' => $contact->date, 'name' => 'date' , 'key' => 'Date :'],
-        ['type' => 'text' , 'value' => $contact->phone, 'name' => 'phone' , 'key' => 'Phone :']
-        ],$api);
+            ['type' => 'text', 'value' => $contact->firstname, 'name' => 'firstname', 'key' => 'First Name :'],
+            ['type' => 'text', 'value' => $contact->lastname, 'name' => 'lastname', 'key' => 'Last Name :'],
+            ['type' => 'date', 'value' => $contact->date, 'name' => 'date', 'key' => 'Date :'],
+            ['type' => 'text', 'value' => $contact->phone, 'name' => 'phone', 'key' => 'Phone :'],
+        ], $api);
 
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return $Ajaxis;
         }
 
@@ -123,7 +124,7 @@ class ContactBtController extends Controller
         $contact->date = $input['date'];
         $contact->phone = $input['phone'];
         $contact->save();
-         //Reload page 
+        //Reload page
         return URL::To('ContactBt');
 
     }
@@ -140,20 +141,21 @@ class ContactBtController extends Controller
         $contact->delete();
         return URL::to('ContactBt');
     }
-    
+
     /**
      * Generate Deleting confirmation message
-     * 
+     *
      * @param int $id
      * @return use Amranidev\Ajaxis\Ajaxis
-     */ 
-    public function delete($id){
-      
-      $api = '/ContactBt/'.$id.'/destroy';
-      $Ajaxis = Ajaxis::BtDeleting('Delete','Are you sure to delete this contact ?',$api);      
-      
-      if(Request::ajax()){
-        return $Ajaxis;
-      }  
+     */
+    public function delete($id)
+    {
+
+        $api = '/ContactBt/' . $id . '/destroy';
+        $Ajaxis = Ajaxis::BtDeleting('Delete', 'Are you sure to delete this contact ?', $api);
+
+        if (Request::ajax()) {
+            return $Ajaxis;
+        }
     }
 }
